@@ -3,7 +3,7 @@
     if (!Eu && !zu && !Hu) {
       reject("I couldn't find the game. Maybe try refreshing?")
     }
-    console.log("GOOGLE DOODLE MOD LOADER\ncreated by cabalex for the 2021 Doodle Champion Island Games\nv0.1.0\n\nUpload your FNF song beatmap/mp3.")
+    console.log("GOOGLE DOODLE MOD LOADER\ncreated by cabalex for the 2021 Doodle Champion Island Games\nv0.2.0\n\nUpload your FNF song beatmap/mp3.")
     window.google.doodle.doodle_args.submitScoreUrl = "";
     // Get files
     var [f] = await window.showOpenFilePicker({"multiple": false, "types": [{"description": "FNF Beatmaps", "accept": {'application/json': ['.json']}}]})
@@ -62,51 +62,55 @@
             // Find the key of disco
             var source = document.getElementsByTagName('html')[0].innerHTML;
             /*
-            There is a different version of the Google Doodle hosted on rc1, rc2, rc3, and rc4-rc6.
+            There is a different version of the Google Doodle hosted on rc1, rc2, rc3, rc4-rc6, and rc7.
             Each variable name is randomized, so you can't just use one on any other.
             This script checks for that and changes the variables accordingly.
             */
-            for (var i = 1; i <= 6; i++) {
-              if (source.indexOf("logos/2020/kitsune/rc" + i) > -1) {
-                console.log("Running RC" + i + " - https://www.google.com/logos/2020/kitsune/rc" + i + "/kitsune20.html?hl=en" )
-                switch(i) {
-                  case 1:
-                    A.C1.Ud.Sb = audio.src
-                    A.C1.Qc = audio.duration*1000
-                    var funcstr = zu.toString().replace(/.SPEED=[0-9.]*\}this/mg, ".SPEED=" + bpm + "}this")
-                    zu.prototype.constructor = new Function("b", funcstr.substr(12, funcstr.length-13));
-                    break;
-                  case 2:
-                    A.E1.Rd.Tb = audio.src
-                    A.E1.Oc = audio.duration*1000
-                    var funcstr = Eu.toString().replace(/.SPEED=[0-9.]*\}this/mg, ".SPEED=" + bpm + "}this")
-                    Eu.prototype.constructor = new Function("b", funcstr.substr(12, funcstr.length-13));
-                    // Cu - rock (third one, the three sisters gate)
-                    // Bu - ballad (second one, underwater)
-                    // Du - disco (first one, normal gate)
-                    Du = beatmap;
-                    break;
-                  case 3:
-                    A.I1.Rd.Tb = audio.src
-                    A.I1.Oc = audio.duration*1000
-                    var funcstr = Hu.toString().replace(/.SPEED=[0-9.]*\}this/mg, ".SPEED=" + bpm + "}this")
-                    Hu.prototype.constructor = new Function("b", funcstr.substr(12, funcstr.length-13));
-                    Du = beatmap;
-                    break;
-                  case 4:
-                  case 5:
-                  case 6:
-                    A.K1.le.oc = audio.src
-                    A.K1.Sc = audio.duration*1000
-                    var funcstr = Hu.toString().replace(/.SPEED=[0-9.]*\}this/mg, ".SPEED=" + bpm + "}this")
-                    Hu.prototype.constructor = new Function("b", funcstr.substr(12, funcstr.length-13));
-                    Gu = beatmap;
-                    break;
-                  default:
-                    console.error("Error: Unknown rc type? RC" + i)
-                }
+            const version = parseInt(source.split("/kitsune/rc")[1].split("/")[0])
+            console.log("Running RC" + version + " - https://www.google.com/logos/2020/kitsune/rc" + version + "/kitsune20.html?hl=en" )
+            switch(version) {
+              case 1:
+                A.C1.Ud.Sb = audio.src
+                A.C1.Qc = audio.duration*1000
+                var funcstr = zu.toString().replace(/.SPEED=[0-9.]*\}this/mg, ".SPEED=" + bpm + "}this")
+                zu.prototype.constructor = new Function("b", funcstr.substr(12, funcstr.length-13));
                 break;
-              }
+              case 2:
+                A.E1.Rd.Tb = audio.src
+                A.E1.Oc = audio.duration*1000
+                var funcstr = Eu.toString().replace(/.SPEED=[0-9.]*\}this/mg, ".SPEED=" + bpm + "}this")
+                Eu.prototype.constructor = new Function("b", funcstr.substr(12, funcstr.length-13));
+                // Cu - rock (third one, the three sisters gate)
+                // Bu - ballad (second one, underwater)
+                // Du - disco (first one, normal gate)
+                Du = beatmap;
+                break;
+              case 3:
+                A.I1.Rd.Tb = audio.src
+                A.I1.Oc = audio.duration*1000
+                var funcstr = Hu.toString().replace(/.SPEED=[0-9.]*\}this/mg, ".SPEED=" + bpm + "}this")
+                Hu.prototype.constructor = new Function("b", funcstr.substr(12, funcstr.length-13));
+                Du = beatmap;
+                break;
+              case 4:
+              case 5:
+              case 6:
+                A.K1.le.oc = audio.src
+                A.K1.Sc = audio.duration*1000
+                var funcstr = Hu.toString().replace(/.SPEED=[0-9.]*\}this/mg, ".SPEED=" + bpm + "}this")
+                Hu.prototype.constructor = new Function("b", funcstr.substr(12, funcstr.length-13));
+                Gu = beatmap;
+                break;
+              case 7:
+                A.K6.fe.Jc = audio.src
+                A.K6.Bd = audio.duration*1000
+                var funcstr = Mu.toString().replace(/.SPEED=[0-9.]*\}this/mg, ".SPEED=" + bpm + "}this")
+                Mu.prototype.constructor = new Function("b", funcstr.substr(12, funcstr.length-13));
+                Lu = beatmap;
+                break;
+              default:
+                console.error("Error: Unknown rc type? RC" + version)
+                reject();
             }
             //
             console.log("Finished loading successfully! Visit the main Artistic Swimming minigame to play.")
